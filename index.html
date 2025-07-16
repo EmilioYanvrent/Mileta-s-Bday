@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday MILETAAAA!!!</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #ffffff 0%, #0703fc 100%);
+            position: relative;
+            overflow-x: hidden;
+            overflow: hidden;
+        }
+        .confetti {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .center-container {
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            padding: 0;
+        }
+        .countdown {
+            font-size: 6rem;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            text-shadow: 0 4px 32px #0008, 0 1px 0 #fff4;
+            transition: opacity 0.5s, transform 0.5s;
+            animation: pop 1s infinite alternate;
+        }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+        .wish {
+            max-width: 700px;
+            width: 90vw;
+            font-size: 1.35rem;
+            color: #fff;
+            background: rgba(255,255,255,0.10);
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            border-radius: 32px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            opacity: 0;
+            transition: opacity 1s, transform 1s;
+            margin-top: 1rem;
+            line-height: 1.7;
+            text-align: left;
+            height: 70vh;
+            max-height: 70vh;
+            overflow-y: auto;
+            margin-top: 0;
+        }
+        .wish.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 600px) {
+            .wish {
+                font-size: 1rem;
+                padding: 1.2rem 0.7rem 1rem 0.7rem;
+                height: 60vh;
+                max-height: 60vh;
+            }
+            .countdown {
+                font-size: 3rem;
+            }
+            .center-container {
+                padding-top: 3vh;
+                padding-bottom: 3vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="confetti" id="confetti"></canvas>
+    <div class="center-container">
+        <!-- Removed waiting-msg div, now handled by countdown -->
+        <div class="countdown" id="countdown">3</div>
+        <div id="wish-title" style="font-size:2.1rem;font-weight:800;letter-spacing:0.03em;text-align:center;margin-bottom:2.2rem;color:#ffe066;text-shadow:0 2px 12px #0006,0 1px 0 #fff4;display:none;">For Felisia Mileta</div>
+        <div class="wish" id="wish" style="display:none;">
+            Happy Birthday, Mil 💛<br><br>
+            It still amazes me how the universe works. How something that started by pure accident could bloom into something this beautiful. 
+            The day we met wasn’t planned, it wasn’t expected, but somehow it felt like it was meant to happen all along. 
+            And from that one moment, everything started to change. Slowly, quietly, and wonderfully. Just like you.<br><br>
+            There’s something about you, Mil. The way you laugh, the way you see the world, the way you carry yourself with kindness even when you don’t notice it. You have this rare ability to make people feel seen, heard, and appreciated without even trying. And I feel lucky, truly lucky, to be one of those people.<br><br>
+            Today, on your special day, I hope you take a moment to realize just how much light you bring into the lives of those around you. You’re thoughtful, strong, genuine, and full of warmth. And those are just a few reasons why you’re so special to me.<br><br>
+            I don’t know what the future holds and maybe that’s the exciting part. But what I do know is that meeting you was one of the best things that’s ever happened to me. Whether we're talking for hours or just sitting in silence, whether we're laughing over the dumbest things or sharing the real, raw parts of life, it always feels right when it's with you.<br><br>
+            So here's to you, Mil. To the girl who turned a random moment into something unforgettable. I hope this birthday brings you as much joy as you bring into the lives of others. I hope you laugh until your cheeks hurt, smile until your heart feels full, and feel deeply loved, because you are, in more ways than words can express.<br><br>
+            Happy birthday once again.<br>
+            You deserve the world and if I can help, I’ll do my best to give it to you.<br><br>
+            This may be simple, but your gifts await you!! 🎁✨<br><br>
+            With all my heart,<br>
+            Emilio Yanvrent
+        </div>
+    </div>
+    <script>
+        // Countdown logic
+        const countdownEl = document.getElementById('countdown');
+        const wishEl = document.getElementById('wish');
+        let count = 3;
+        wishEl.classList.remove('show');
+        wishEl.style.display = 'none';
+        countdownEl.style.opacity = 1;
+        document.body.style.overflow = 'hidden';
+        const wishTitleEl = document.getElementById('wish-title');
+        wishTitleEl.style.display = 'none'; 
+        // Removed waitingMsgEl
+
+        const timer = setInterval(() => {
+            count--;
+            if (count > 0) {
+                if (count === 1) {
+                    countdownEl.textContent = 'NUNGGUIN YAAA';
+                } else {
+                    countdownEl.textContent = count;
+                }
+                countdownEl.style.opacity = 1;
+                countdownEl.style.transform = 'scale(1.2)';
+                setTimeout(() => countdownEl.style.transform = 'scale(1)', 200);
+            } else {
+                clearInterval(timer);
+                countdownEl.style.opacity = 0;
+                countdownEl.textContent = '';
+                wishEl.classList.add('show');
+                wishEl.style.display = '';
+                wishTitleEl.style.display = '';
+                // Keep body overflow hidden so only the wish card can scroll
+                launchConfetti();
+            }
+        }, 1000);
+
+        // Confetti effect
+        // Improved and unlimited confetti
+        let confettiTimer = null;
+        let confettiParticles = [];
+        let confettiCanvas = null;
+        function launchConfetti() {
+            confettiCanvas = document.getElementById('confetti');
+            const ctx = confettiCanvas.getContext('2d');
+            let W = window.innerWidth, H = window.innerHeight;
+            confettiCanvas.width = W; confettiCanvas.height = H;
+            let colors = ['#FFD700','#FF69B4','#00CFFF','#FF4E50','#7CFC00','#fff'];
+            let shapes = ['rect', 'circle'];
+            let numConfetti = Math.floor((W * H) / 2500); // Responsive density
+            confettiParticles = [];
+            for(let i=0;i<numConfetti;i++){
+                confettiParticles.push({
+                    x: Math.random()*W,
+                    y: Math.random()*H,
+                    r: Math.random()*7+4,
+                    d: Math.random()*H/2+H/2,
+                    color: colors[Math.floor(Math.random()*colors.length)],
+                    tilt: Math.random()*10-5,
+                    tiltAngle: 0,
+                    tiltAngleIncremental: (Math.random()*0.07)+.05,
+                    shape: shapes[Math.floor(Math.random()*shapes.length)],
+                    opacity: Math.random()*0.5+0.5,
+                    fallSpeed: Math.random()*1.5+1.5,
+                    swing: Math.random()*2+1
+                });
+            }
+            function draw(){
+                ctx.clearRect(0,0,W,H);
+                for(let i=0;i<confettiParticles.length;i++){
+                    let c = confettiParticles[i];
+                    ctx.save();
+                    ctx.globalAlpha = c.opacity;
+                    ctx.strokeStyle = c.color;
+                    ctx.fillStyle = c.color;
+                    ctx.lineWidth = c.r;
+                    ctx.translate(c.x, c.y);
+                    ctx.rotate(c.tilt * Math.PI / 180);
+                    if (c.shape === 'rect') {
+                        ctx.fillRect(-c.r/2, -c.r/2, c.r, c.r*1.5);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, c.r/2, 0, 2*Math.PI);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                }
+                update();
+            }
+            function update(){
+                for(let i=0;i<confettiParticles.length;i++){
+                    let c = confettiParticles[i];
+                    c.y += c.fallSpeed + Math.cos(c.d/10 + c.x/100)*0.5;
+                    c.x += Math.sin(c.tiltAngle) * c.swing;
+                    c.tiltAngle += c.tiltAngleIncremental;
+                    c.tilt = Math.sin(c.tiltAngle- (i%3)) * 15;
+                    if(c.y > H+20){
+                        c.x = Math.random()*W;
+                        c.y = -10;
+                        c.fallSpeed = Math.random()*1.5+1.5;
+                        c.opacity = Math.random()*0.5+0.5;
+                    }
+                    if(c.x < -20) c.x = W+20;
+                    if(c.x > W+20) c.x = -20;
+                }
+            }
+            if(confettiTimer) clearInterval(confettiTimer);
+            confettiTimer = setInterval(draw, 16);
+        }
+        // Responsive confetti
+        window.addEventListener('resize', ()=>{
+            if(confettiCanvas){
+                confettiCanvas.width = window.innerWidth;
+                confettiCanvas.height = window.innerHeight;
+                // Re-launch confetti for new size
+                launchConfetti();
+            }
+        });
+    </script>
+</body>
+</html>
