@@ -40,6 +40,12 @@
             text-shadow: 0 4px 32px #0008, 0 1px 0 #fff4;
             transition: opacity 0.5s, transform 0.5s;
             animation: pop 1s infinite alternate;
+            word-break: break-word;
+            white-space: normal;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            box-sizing: border-box;
+            text-align: center;
         }
         @keyframes pop {
             0% { transform: scale(1); }
@@ -78,7 +84,9 @@
                 max-height: 60vh;
             }
             .countdown {
-                font-size: 3rem;
+                font-size: 2.1rem;
+                padding-left: 0.7em;
+                padding-right: 0.7em;
             }
             .center-container {
                 padding-top: 3vh;
